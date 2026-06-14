@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "http://annalittler.github.io/",
+  "homepage": "http://annalittler.github.io/bogglebabes",
   "scripts": {
     "dev": "vite",
     "start": "vite",
