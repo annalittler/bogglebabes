@@ -1,0 +1,29 @@
+# Dependencies (The core folder to ignore)
+node_modules/
+jspm_packages/
+web_modules/
+
+# Debug and log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local environment variables (Contains sensitive credentials)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Production/Build outputs
+build/
+.next/
+.nuxt/
+out/
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
