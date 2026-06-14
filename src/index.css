@@ -1,0 +1,36 @@
+:root {
+  --blue: #A7BCD8;
+  --red: #B83838;
+  --sand: #F4F7CB;
+  --blue-dark: #7A96B5;
+  --blue-deep: #4A6278;
+  --sand-dark: #D4D8A8;
+  --sand-light: #FAFCE8;
+  --text: #2C3E50;
+  --text-muted: #5A6F82;
+  --timer-ring: rgba(74, 98, 120, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(165deg, var(--blue) 0%, #8FAEC9 45%, var(--blue-dark) 100%);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
