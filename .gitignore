@@ -17,7 +17,6 @@ yarn-error.log*
 .env.production.local
 
 # Production/Build outputs
-dist/
 build/
 .next/
 .nuxt/
