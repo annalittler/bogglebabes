@@ -32,6 +32,7 @@ export default function App() {
   const {
     gameState,
     letters,
+    rotations,
     secondsLeft,
     status,
     startRound,
@@ -115,6 +116,7 @@ export default function App() {
         <BoggleGrid
           gridRef={gridRef}
           letters={letters}
+          rotations={rotations}
           path={path}
           isShaking={isShaking}
           canTrace={canTrace}

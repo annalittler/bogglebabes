@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from 'react';
+import { needsOrientationMark } from '../utils/boggle';
 
 function getCellCenter(gridEl, index) {
   const cell = gridEl?.querySelector(`[data-cell-index="${index}"]`);
@@ -16,6 +17,7 @@ function getCellCenter(gridEl, index) {
 export default function BoggleGrid({
   gridRef,
   letters,
+  rotations,
   path,
   isShaking,
   canTrace,
@@ -44,6 +46,7 @@ export default function BoggleGrid({
         {letters.map((letter, index) => {
           const inPath = path.includes(index);
           const isQu = letter === 'Qu';
+          const showOrientationMark = needsOrientationMark(letter);
 
           return (
             <div
@@ -59,7 +62,10 @@ export default function BoggleGrid({
               }}
             >
               <div className={`die ${isShaking ? 'rolling' : ''} ${inPath ? 'selected' : ''}`}>
-                <span className={`die-letter ${isQu ? 'qu' : ''}`}>
+                <span
+                  className={`die-letter ${isQu ? 'qu' : ''} ${showOrientationMark ? 'oriented' : ''}`}
+                  style={{ transform: `rotate(${rotations[index] ?? 0}deg)` }}
+                >
                   {letter || '·'}
                 </span>
               </div>

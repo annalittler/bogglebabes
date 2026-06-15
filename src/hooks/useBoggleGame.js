@@ -5,12 +5,13 @@ import {
   ROUND_SECONDS,
   SHUFFLE_MS,
 } from '../constants';
-import { formatLetter, generateBoard, randomDieFace } from '../utils/boggle';
+import { generateBoard, generateShuffleFrame } from '../utils/boggle';
 import { playTimeUpSound } from '../utils/timerSound';
 
 export function useBoggleGame() {
   const [gameState, setGameState] = useState('idle');
   const [letters, setLetters] = useState(Array(16).fill(''));
+  const [rotations, setRotations] = useState(Array(16).fill(0));
   const [secondsLeft, setSecondsLeft] = useState(ROUND_SECONDS);
   const [status, setStatus] = useState('Tap Start to shake the dice');
 
@@ -37,6 +38,7 @@ export function useBoggleGame() {
     clearTimers();
     setGameState('idle');
     setLetters(Array(16).fill(''));
+    setRotations(Array(16).fill(0));
     setSecondsLeft(ROUND_SECONDS);
     setStatus('Tap Start to shake the dice');
   }, [clearTimers]);
@@ -105,14 +107,12 @@ export function useBoggleGame() {
     setStatus('Shaking dice…');
     setSecondsLeft(ROUND_SECONDS);
     setLetters(Array(16).fill('?'));
+    setRotations(Array(16).fill(0));
 
     rollIntervalRef.current = setInterval(() => {
-      setLetters(
-        Array.from({ length: 16 }, () => {
-          const die = BOGGLE_DICE[Math.floor(Math.random() * BOGGLE_DICE.length)];
-          return formatLetter(randomDieFace(die));
-        })
-      );
+      const frame = generateShuffleFrame(BOGGLE_DICE);
+      setLetters(frame.letters);
+      setRotations(frame.rotations);
     }, ROLL_INTERVAL_MS);
 
     shuffleTimeoutRef.current = setTimeout(() => {
@@ -120,7 +120,9 @@ export function useBoggleGame() {
         clearInterval(rollIntervalRef.current);
         rollIntervalRef.current = null;
       }
-      setLetters(generateBoard(BOGGLE_DICE));
+      const board = generateBoard(BOGGLE_DICE);
+      setLetters(board.letters);
+      setRotations(board.rotations);
       startCountdown();
     }, SHUFFLE_MS);
   }, [clearTimers, gameState, startCountdown]);
@@ -130,6 +132,7 @@ export function useBoggleGame() {
   return {
     gameState,
     letters,
+    rotations,
     secondsLeft,
     status,
     startRound,

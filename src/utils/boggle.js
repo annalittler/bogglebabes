@@ -4,13 +4,38 @@ export function randomDieFace(die) {
   return die[Math.floor(Math.random() * die.length)];
 }
 
+export function randomDieRotation() {
+  const rotations = [0, 90, 180, 270];
+  return rotations[Math.floor(Math.random() * rotations.length)];
+}
+
 export function formatLetter(char) {
   return char === 'Q' ? 'Qu' : char;
 }
 
+const ORIENTATION_MARK_LETTERS = new Set(['M', 'W', 'N', 'Z']);
+
+export function needsOrientationMark(letter) {
+  if (!letter || letter === '?' || letter === '·') return false;
+  const key = letter === 'Qu' ? 'Q' : letter.toUpperCase();
+  return ORIENTATION_MARK_LETTERS.has(key);
+}
+
+export function generateShuffleFrame(dice) {
+  return {
+    letters: Array.from({ length: 16 }, () => {
+      const die = dice[Math.floor(Math.random() * dice.length)];
+      return formatLetter(randomDieFace(die));
+    }),
+    rotations: Array.from({ length: 16 }, () => randomDieRotation()),
+  };
+}
+
 export function generateBoard(dice) {
   const shuffled = [...dice].sort(() => Math.random() - 0.5);
-  return shuffled.map((die) => formatLetter(randomDieFace(die)));
+  const letters = shuffled.map((die) => formatLetter(randomDieFace(die)));
+  const rotations = shuffled.map(() => randomDieRotation());
+  return { letters, rotations };
 }
 
 export function areAdjacent(a, b) {

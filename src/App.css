@@ -299,10 +299,25 @@ h1 {
 }
 
 .die-letter {
+  position: relative;
   font-size: clamp(0.95rem, 6.5vw, 1.65rem);
   line-height: 1;
   letter-spacing: -0.02em;
   pointer-events: none;
+  transform-origin: center center;
+  display: inline-block;
+}
+
+.die-letter.oriented::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -0.12em;
+  height: 2.5px;
+  background: currentColor;
+  opacity: 0.9;
+  border-radius: 1px;
 }
 
 .die-letter.qu {
